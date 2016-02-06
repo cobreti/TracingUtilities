@@ -18,3 +18,9 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.hpp
 
 FORMS    += mainwindow.ui
+
+macx:CONFIG(debug, debug|release) {
+    LIBS += -L../../libs/macx/debug -lTraceServer
+}
+
+INCLUDEPATH += ../../TraceServer/TraceServer/includes

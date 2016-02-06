@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "server.hpp"
+
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +19,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    TraceServer::Server     server_;
 };
 
 #endif // MAINWINDOW_HPP

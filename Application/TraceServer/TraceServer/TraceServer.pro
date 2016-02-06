@@ -10,10 +10,17 @@ TARGET = TraceServer
 TEMPLATE = lib
 CONFIG += staticlib
 
-SOURCES += traceserver.cpp
+SOURCES += \
+    Sources/server.cpp
 
-HEADERS += traceserver.hpp
+HEADERS += \
+    includes/server.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target
+}
+
+
+macx:CONFIG(debug, debug|release) {
+    DESTDIR = ../../libs/macx/debug
 }

@@ -1,12 +1,25 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
+#include "inputblockMgr.hpp"
+
 namespace TraceServer
 {
-    class Server
+    class InputBlockMgr;
+
+    class Server final
     {
     public:
         Server();
+        ~Server();
+
+        Server(const Server&) = delete;
+        Server const operator = (const Server&) = delete;
+
+        InputBlockMgr& inputBlocks() { return inputBlockMgr_; }
+
+    protected:
+        InputBlockMgr       inputBlockMgr_;
     };
 }
 

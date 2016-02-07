@@ -4,7 +4,9 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+CONFIG += c++11
+
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,9 +15,11 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    sources/application.cpp
 
-HEADERS  += mainwindow.hpp
+HEADERS  += mainwindow.hpp \
+    sources/application.hpp
 
 FORMS    += mainwindow.ui
 

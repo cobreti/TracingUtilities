@@ -6,6 +6,10 @@
 class Application
 {
 public:
+
+    static Application& instance();
+
+public:
     Application(int argc, char *argv[]);
 
     Application(const Application&) = delete;
@@ -18,6 +22,10 @@ public:
 protected:
 
     QApplication        qApp_;
+
+protected:
+
+    static Application*     s_pInstance;
 };
 
 #endif // APPLICATION_HPP

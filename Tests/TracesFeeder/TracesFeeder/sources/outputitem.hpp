@@ -8,6 +8,7 @@ class OutputItem
 {
 public:
     OutputItem();
+    OutputItem(QString moduleName, QString traceContent);
     OutputItem(const OutputItem& item);
 
     OutputItem& operator = (const OutputItem& item);

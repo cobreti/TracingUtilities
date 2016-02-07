@@ -18,11 +18,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     sources/application.cpp \
     sources/outputItemMgr.cpp \
-    sources/outputitem.cpp
+    sources/outputitem.cpp \
+    sources/tableoutputitem.cpp
 
 HEADERS  += mainwindow.hpp \
     sources/application.hpp \
     sources/outputItemMgr.hpp \
-    sources/outputitem.hpp
+    sources/outputitem.hpp \
+    sources/tableoutputitem.hpp
 
 FORMS    += mainwindow.ui

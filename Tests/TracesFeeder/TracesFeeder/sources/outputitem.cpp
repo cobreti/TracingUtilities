@@ -2,9 +2,16 @@
 
 #include <algorithm>
 
+
 OutputItem::OutputItem()
 {
+}
 
+
+OutputItem::OutputItem(QString moduleName, QString traceContent) :
+    moduleName_{moduleName},
+    traceContent_{traceContent}
+{
 }
 
 

@@ -1,11 +1,29 @@
-#ifndef OUTPUTMGR_HPP
-#define OUTPUTMGR_HPP
+#ifndef OUTPUTITEMMGR_HPP
+#define OUTPUTITEMMGR_HPP
 
+#include "sources/outputitem.hpp"
 
-class OutputMgr
+#include <map>
+
+class OutputItemMgr
 {
 public:
-    OutputMgr();
+    OutputItemMgr();
+
+    OutputItemMgr(const OutputItemMgr&) = delete;
+    OutputItemMgr operator = (const OutputItemMgr&) = delete;
+
+    void add( const OutputItem& item );
+    std::pair<OutputItem, bool> get( const QString& moduleName );
+
+protected:
+
+    using OutputItemMap = std::map<QString, OutputItem>;
+
+protected:
+
+    OutputItemMap       items_;
 };
 
-#endif // OUTPUTMGR_HPP
+
+#endif // OUTPUTITEMMGR_HPP

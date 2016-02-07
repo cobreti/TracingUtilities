@@ -1,11 +1,16 @@
-#include "mainwindow.hpp"
-#include <QApplication>
+#include "sources/Application.hpp"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    Application app(argc, argv);
 
-    return a.exec();
+    int nRet{-1};
+
+    if (app.init())
+    {
+        nRet = app.run();
+        app.terminate();
+    }
+
+    return nRet;
 }

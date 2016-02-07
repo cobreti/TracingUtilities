@@ -15,8 +15,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    sources/application.cpp \
+    sources/outputItemMgr.cpp \
+    sources/outputitem.cpp
 
-HEADERS  += mainwindow.hpp
+HEADERS  += mainwindow.hpp \
+    sources/application.hpp \
+    sources/outputItemMgr.hpp \
+    sources/outputitem.hpp
 
 FORMS    += mainwindow.ui

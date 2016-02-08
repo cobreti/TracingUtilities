@@ -4,6 +4,8 @@
 #include <qtcore>
 
 #include "sources/outputitem.hpp"
+#include "sources/tracestable.hpp"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->addButton_->setEnabled(false);
     ui->connectButton_->setEnabled(false);
+
+    pTable_ = new TracesTable(ui->tracesTableWidget_);
 
     connectSignalsSlots();
 }
@@ -40,16 +44,18 @@ void MainWindow::onAddTrace(bool)
     QString         moduleName = ui->moduleNameInput_->text();
     QString         traceContent = ui->traceContentEdit_->document()->toPlainText();
     OutputItem      item(moduleName, traceContent);
-    TableOutputItem tableItem(item, ui->tracesTableWidget_);
 
-    tableItems_.insert( std::make_pair(tableItem.row(), std::move(tableItem)) );
+    pTable_->addRow(item);
+//    TableOutputItem tableItem(item, ui->tracesTableWidget_);
+
+//    tableItems_.insert( std::make_pair(tableItem.row(), std::move(tableItem)) );
 }
 
 
 void MainWindow::onTestBtn(bool) {
 
-    auto iter = tableItems_.begin();
-    tableItems_.erase(iter);
+//    auto iter = tableItems_.begin();
+//    tableItems_.erase(iter);
 }
 
 

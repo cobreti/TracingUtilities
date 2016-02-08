@@ -2,11 +2,13 @@
 #define MAINWINDOW_HPP
 
 #include <QMainWindow>
-#include "sources/tableoutputitem.hpp"
+#include "sources/TracesTableRow.hpp"
 
 namespace Ui {
 class MainWindow;
 }
+
+class TracesTable;
 
 class MainWindow : public QMainWindow
 {
@@ -30,11 +32,7 @@ protected:
 
 protected:
 
-    using TableOutputItemMap = std::map<int, TableOutputItem>;
-
-protected:
-
-    TableOutputItemMap      tableItems_;
+    TracesTable     *pTable_;
 
 private:
     Ui::MainWindow *ui;

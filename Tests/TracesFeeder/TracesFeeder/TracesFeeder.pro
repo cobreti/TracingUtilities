@@ -19,12 +19,14 @@ SOURCES += main.cpp\
     sources/application.cpp \
     sources/outputItemMgr.cpp \
     sources/outputitem.cpp \
-    sources/tableoutputitem.cpp
+    sources/tracestable.cpp \
+    sources/TracesTableRow.cpp
 
 HEADERS  += mainwindow.hpp \
     sources/application.hpp \
     sources/outputItemMgr.hpp \
     sources/outputitem.hpp \
-    sources/tableoutputitem.hpp
+    sources/tracestable.hpp \
+    sources/TracesTableRow.hpp
 
 FORMS    += mainwindow.ui

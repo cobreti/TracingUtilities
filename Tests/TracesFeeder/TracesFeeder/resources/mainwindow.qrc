@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/TracesList">
+        <file>Icons/Play.png</file>
+        <file>Icons/Stop.png</file>
+    </qresource>
+</RCC>

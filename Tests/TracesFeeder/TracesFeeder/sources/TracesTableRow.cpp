@@ -1,30 +1,44 @@
+#include <cassert>
+
 #include "TracesTableRow.hpp"
 
-TracesTableRow::TracesTableRow( RowIdT rowId, const OutputItem& item, QTableWidget *pTableWidget) :
+
+TracesTableRow::TracesTableRow( int insertRow, RowIdT rowId, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& icons ) :
     pTableWidget_{pTableWidget},
     item_{item},
-    rowId_{rowId}
+    rowId_{rowId},
+    state_{eState_Stopped},
+    icons_{icons}
 {
     if ( nullptr == pTableWidget )
     {
         throw std::invalid_argument("table widget argument cannot be null");
     }
 
+    if ( 0 == rowId )
+    {
+        throw std::invalid_argument("invalid rowId value");
+    }
+
     pModuleNameWidgetItem_ = new QTableWidgetItem(item.moduleName());
+    pModuleNameWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
+    pModuleNameWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+
     pTraceContentWidgetItem_ = new QTableWidgetItem(item.traceContent());
+    pTraceContentWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
+    pTraceContentWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+
+    pStartStopWidgetItem_ = new QTableWidgetItem();
+    pStartStopWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+    pStartStopWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
+
+    pTableWidget_->setItem(insertRow, 0, pStartStopWidgetItem_);
+    pTableWidget_->setItem(insertRow, 1, pModuleNameWidgetItem_);
+    pTableWidget_->setItem(insertRow, 2, pTraceContentWidgetItem_);
+
+    updateFromState();
 }
 
-
-TracesTableRow::TracesTableRow( TracesTableRow&& tableItem ) :
-    pTableWidget_{tableItem.pTableWidget_},
-    item_{tableItem.item_},
-    pModuleNameWidgetItem_{tableItem.pModuleNameWidgetItem_},
-    pTraceContentWidgetItem_{tableItem.pTraceContentWidgetItem_}
-{
-    tableItem.pModuleNameWidgetItem_ = nullptr;
-    tableItem.pTraceContentWidgetItem_ = nullptr;
-    tableItem.pTableWidget_ = nullptr;
-}
 
 
 TracesTableRow::~TracesTableRow()
@@ -32,23 +46,20 @@ TracesTableRow::~TracesTableRow()
 }
 
 
-TracesTableRow& TracesTableRow::operator = (TracesTableRow&& tableItem)
+
+void TracesTableRow::setState(State state)
 {
-    swap(tableItem);
-    return *this;
+    if (state != state_) {
+        state_ = state;
+        updateFromState();
+    }
 }
 
 
-void TracesTableRow::insertInTable(int row)
+void TracesTableRow::updateFromState()
 {
-    pTableWidget_->setItem(row, 1, pModuleNameWidgetItem_);
-    pTableWidget_->setItem(row, 2, pTraceContentWidgetItem_);
+    assert(pStartStopWidgetItem_ != nullptr);
+
+    pStartStopWidgetItem_->setIcon( icons_.get(state_) );
 }
 
-void TracesTableRow::swap( TracesTableRow& tableItem )
-{
-    std::swap( pModuleNameWidgetItem_, tableItem.pModuleNameWidgetItem_ );
-    std::swap( pTraceContentWidgetItem_, tableItem.pTraceContentWidgetItem_ );
-    std::swap( item_, tableItem.item_ );
-    std::swap( pTableWidget_, tableItem.pTableWidget_ );
-}

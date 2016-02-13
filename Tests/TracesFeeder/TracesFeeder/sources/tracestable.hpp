@@ -6,6 +6,7 @@
 #include <map>
 #include "sources/TracesTableRow.hpp"
 
+
 class TracesTable : QObject
 {
     Q_OBJECT
@@ -18,16 +19,21 @@ public:
 
     void addRow( const OutputItem& item );
 
+public slots:
+
+    void onTableItemDoubleClicked( QTableWidgetItem* item );
+
 protected:
 
-    using TableRowMap = std::map<TracesTableRow::RowIdT, TracesTableRow>;
+    using TableRowMap = std::map<TracesTableRow::RowIdT, TracesTableRow*>;
 
 protected:
 
-    QTableWidget                *pTable_;
-    TableRowMap                 rows_;
+    QTableWidget                        *pTable_;
+    TableRowMap                         rows_;
 
-    TracesTableRow::RowIdT      nextId_;
+    TracesTableRow::RowIdT              nextId_;
+    TracesTableRow::RowIconSet          icons_;
 };
 
 #endif // TRACESTABLE_HPP

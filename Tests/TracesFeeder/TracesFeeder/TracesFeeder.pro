@@ -27,6 +27,10 @@ HEADERS  += mainwindow.hpp \
     sources/outputItemMgr.hpp \
     sources/outputitem.hpp \
     sources/tracestable.hpp \
-    sources/TracesTableRow.hpp
+    sources/TracesTableRow.hpp \
+    sources/iconset.hpp
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources/mainwindow.qrc

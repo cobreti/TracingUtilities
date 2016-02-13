@@ -4,7 +4,7 @@
 #include <qtcore>
 #include <QTableWidget>
 #include "sources/outputitem.hpp"
-
+#include "sources/iconset.hpp"
 
 class TracesTableRow
 {
@@ -14,23 +14,32 @@ public:
 
     using   RowIdT = int;
 
-public:
-    TracesTableRow( TracesTableRow&& tableItem );
-    ~TracesTableRow();
+    enum State
+    {
+        eState_Stopped,
+        eState_Playing,
+        eState_Stoping,
+        eState_Starting
+    };
 
-    TracesTableRow& operator = (TracesTableRow&& tableItem);
+    using   RowIconSet = IconSet<State>;
+
+public:
+    ~TracesTableRow();
 
     TracesTableRow(const TracesTableRow&) = delete;
     TracesTableRow& operator = (const TracesTableRow&) = delete;
 
-    RowIdT rowId() const { return rowId_; }
+    RowIdT rowId() const noexcept { return rowId_; }
+    State state() const noexcept { return state_; }
+
+    void setState(State state);
 
 protected:
 
-    TracesTableRow( RowIdT id, const OutputItem& item, QTableWidget *pTableWidget );
+    TracesTableRow( int insertRow, RowIdT id, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& iconSet );
 
-    void insertInTable(int row);
-    void swap( TracesTableRow& tableItem );
+    void updateFromState();
 
 protected:
 
@@ -39,8 +48,12 @@ protected:
 
     QTableWidgetItem    *pModuleNameWidgetItem_;
     QTableWidgetItem    *pTraceContentWidgetItem_;
+    QTableWidgetItem    *pStartStopWidgetItem_;
 
     RowIdT              rowId_;
+    State               state_;
+
+    const RowIconSet&   icons_;
 };
 
 #endif // TracesTableRow_HPP

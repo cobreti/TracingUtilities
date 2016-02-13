@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->connectButton_->setEnabled(false);
 
     pTable_ = new TracesTable(ui->tracesTableWidget_);
+    ui->tracesTableWidget_->setColumnWidth(0, 30);
 
     connectSignalsSlots();
 }
@@ -44,6 +45,8 @@ void MainWindow::onAddTrace(bool)
     QString         moduleName = ui->moduleNameInput_->text();
     QString         traceContent = ui->traceContentEdit_->document()->toPlainText();
     OutputItem      item(moduleName, traceContent);
+
+    qDebug() << "trace content : " << traceContent;
 
     pTable_->addRow(item);
 //    TableOutputItem tableItem(item, ui->tracesTableWidget_);

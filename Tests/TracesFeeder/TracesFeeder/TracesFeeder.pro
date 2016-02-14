@@ -20,7 +20,9 @@ SOURCES += main.cpp\
     sources/outputItemMgr.cpp \
     sources/outputitem.cpp \
     sources/tracestable.cpp \
-    sources/TracesTableRow.cpp
+    sources/TracesTableRow.cpp \
+    sources/outputworker.cpp \
+    sources/outputworkermgr.cpp
 
 HEADERS  += mainwindow.hpp \
     sources/application.hpp \
@@ -28,7 +30,9 @@ HEADERS  += mainwindow.hpp \
     sources/outputitem.hpp \
     sources/tracestable.hpp \
     sources/TracesTableRow.hpp \
-    sources/iconset.hpp
+    sources/iconset.hpp \
+    sources/outputworker.hpp \
+    sources/outputworkermgr.hpp
 
 FORMS    += mainwindow.ui
 

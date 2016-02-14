@@ -2,5 +2,7 @@
     <qresource prefix="/TracesList">
         <file>Icons/Play.png</file>
         <file>Icons/Stop.png</file>
+        <file>Icons/Starting.png</file>
+        <file>Icons/Stoping.png</file>
     </qresource>
 </RCC>

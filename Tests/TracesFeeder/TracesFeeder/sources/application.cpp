@@ -1,6 +1,6 @@
 #include "application.hpp"
 #include "mainwindow.hpp"
-
+#include "sources/outputitem.hpp"
 
 Application* Application::s_pInstance = nullptr;
 
@@ -20,6 +20,7 @@ Application::Application(int argc, char *argv[]) :
 
 bool Application::init() {
 
+    qRegisterMetaType<OutputItem::OutputItemIdT>("OutputItem::OutputItemIdT");
 
     return true;
 }

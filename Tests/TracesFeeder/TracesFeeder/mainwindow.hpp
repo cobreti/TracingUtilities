@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "sources/TracesTableRow.hpp"
+#include "sources/outputworkermgr.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    virtual void closeEvent(QCloseEvent*) override;
+
 public slots:
 
     void onModuleNameTextChanged(const QString& text);
@@ -32,7 +35,8 @@ protected:
 
 protected:
 
-    TracesTable     *pTable_;
+    TracesTable         *pTable_;
+    OutputWorkerMgr     workerMgr_;
 
 private:
     Ui::MainWindow *ui;

@@ -12,7 +12,7 @@ class TracesTableRow
 
 public:
 
-    using   RowIdT = int;
+    using   RowIdT = OutputItem::OutputItemIdT;
 
     enum State
     {
@@ -30,14 +30,15 @@ public:
     TracesTableRow(const TracesTableRow&) = delete;
     TracesTableRow& operator = (const TracesTableRow&) = delete;
 
-    RowIdT rowId() const noexcept { return rowId_; }
+    RowIdT id() const noexcept { return rowId_; }
     State state() const noexcept { return state_; }
+    const OutputItem& item() const noexcept { return item_; }
 
     void setState(State state);
 
 protected:
 
-    TracesTableRow( int insertRow, RowIdT id, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& iconSet );
+    TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& iconSet );
 
     void updateFromState();
 

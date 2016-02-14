@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->addButton_->setEnabled(false);
     ui->connectButton_->setEnabled(false);
 
-    pTable_ = new TracesTable(ui->tracesTableWidget_);
+    pTable_ = new TracesTable(ui->tracesTableWidget_, workerMgr_);
     ui->tracesTableWidget_->setColumnWidth(0, 30);
 
     connectSignalsSlots();
@@ -25,6 +25,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+void MainWindow::closeEvent(QCloseEvent *)
+{
+    workerMgr_.stopAll();
 }
 
 

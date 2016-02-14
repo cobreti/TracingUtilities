@@ -7,12 +7,14 @@
 #include "sources/TracesTableRow.hpp"
 
 
+class OutputWorkerMgr;
+
 class TracesTable : QObject
 {
     Q_OBJECT
 
 public:
-    TracesTable(QTableWidget* pTable);
+    TracesTable(QTableWidget* pTable, OutputWorkerMgr& workerMgr);
 
     TracesTable(const TracesTable&) = delete;
     TracesTable& operator = (const TracesTable&) = delete;
@@ -22,6 +24,8 @@ public:
 public slots:
 
     void onTableItemDoubleClicked( QTableWidgetItem* item );
+    void onItemStarted( OutputItem::OutputItemIdT id );
+    void onItemStopped( OutputItem::OutputItemIdT id );
 
 protected:
 
@@ -32,8 +36,9 @@ protected:
     QTableWidget                        *pTable_;
     TableRowMap                         rows_;
 
-    TracesTableRow::RowIdT              nextId_;
     TracesTableRow::RowIconSet          icons_;
+
+    OutputWorkerMgr                     &workerMgr_;
 };
 
 #endif // TRACESTABLE_HPP

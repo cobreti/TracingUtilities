@@ -3,10 +3,10 @@
 #include "TracesTableRow.hpp"
 
 
-TracesTableRow::TracesTableRow( int insertRow, RowIdT rowId, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& icons ) :
+TracesTableRow::TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& icons ) :
     pTableWidget_{pTableWidget},
     item_{item},
-    rowId_{rowId},
+    rowId_{item.id()},
     state_{eState_Stopped},
     icons_{icons}
 {
@@ -15,21 +15,21 @@ TracesTableRow::TracesTableRow( int insertRow, RowIdT rowId, const OutputItem& i
         throw std::invalid_argument("table widget argument cannot be null");
     }
 
-    if ( 0 == rowId )
+    if ( 0 == id() )
     {
         throw std::invalid_argument("invalid rowId value");
     }
 
     pModuleNameWidgetItem_ = new QTableWidgetItem(item.moduleName());
     pModuleNameWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
-    pModuleNameWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+    pModuleNameWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
 
     pTraceContentWidgetItem_ = new QTableWidgetItem(item.traceContent());
     pTraceContentWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
-    pTraceContentWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+    pTraceContentWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
 
     pStartStopWidgetItem_ = new QTableWidgetItem();
-    pStartStopWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(rowId) );
+    pStartStopWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
     pStartStopWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
 
     pTableWidget_->setItem(insertRow, 0, pStartStopWidgetItem_);

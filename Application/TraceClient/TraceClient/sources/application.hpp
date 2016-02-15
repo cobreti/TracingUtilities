@@ -4,6 +4,11 @@
 #include <QApplication>
 #include "Server.hpp"
 
+enum
+{
+    kDefaultPort = 5000
+};
+
 class Application
 {
 public:

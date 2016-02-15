@@ -13,7 +13,7 @@ public:
 
 public:
     OutputItem();
-    OutputItem(QString moduleName, QString traceContent);
+    OutputItem(QString moduleName, QString traceContent, int intervalInMS);
     OutputItem(const OutputItem& item);
 
     OutputItem& operator = (const OutputItem& item);
@@ -21,6 +21,9 @@ public:
     const QString& moduleName() const noexcept { return moduleName_; }
     const QString& traceContent() const noexcept { return traceContent_; }
     const OutputItemIdT& id() const noexcept { return id_; }
+
+    // interval in milliseconds
+    const int interval() const { return msInterval_; }
 
 protected:
 
@@ -31,6 +34,7 @@ protected:
     QString             moduleName_;
     QString             traceContent_;
     OutputItemIdT       id_;
+    int                 msInterval_;
 
     static std::atomic<OutputItemIdT>        s_nextId_;
 };

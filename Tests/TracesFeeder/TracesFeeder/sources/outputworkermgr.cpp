@@ -1,7 +1,8 @@
 #include "outputworkermgr.hpp"
 #include "outputworker.hpp"
 
-OutputWorkerMgr::OutputWorkerMgr(QObject *parent) : QObject(parent)
+OutputWorkerMgr::OutputWorkerMgr(QObject *parent) : QObject(parent),
+    port_{5000}
 {
 
 }
@@ -12,7 +13,7 @@ void OutputWorkerMgr::start(const OutputItem &item)
     if ( workers_.count(item.id()) > 0 )
         throw std::runtime_error("outputitem already present in a worker");
 
-    OutputWorker*       pWorker = new OutputWorker(item);
+    OutputWorker*       pWorker = new OutputWorker(item, serverAddress_, port_);
     workers_.insert( std::make_pair(pWorker->id(), pWorker) );
 
     connect(    pWorker, SIGNAL(started(OutputItem::OutputItemIdT)),

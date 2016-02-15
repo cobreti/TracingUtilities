@@ -7,32 +7,28 @@
 
 namespace TraceServer
 {
-    class InputBlock : QObject
+    class InputBlock : public QObject
     {
         Q_OBJECT
 
     public:
 
-        using InputBlockNameT = std::string;
         using PortT = quint16;
 
     public:
-        InputBlock( InputBlockNameT name, PortT port );
+        InputBlock( QString name );
 
         InputBlock(const InputBlock&) = delete;
         InputBlock operator = (const InputBlock&) = delete;
 
-        const InputBlockNameT& name() { return name_; }
+        const QString& name() { return name_; }
 
-        void start();
-        void stop();
+        virtual void start();
+        virtual void stop();
 
     protected:
 
-        InputBlockNameT name_;
-        PortT           port_;
-        QHostAddress    address_;
-        QTcpServer      server_;
+        QString         name_;
     };
 }
 

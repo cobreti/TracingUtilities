@@ -27,6 +27,9 @@ public slots:
     void onTraceContentTextChanged();
     void onAddTrace(bool);
     void onTestBtn(bool);
+    void onAddressEditingFinished();
+    void onSetAddress(bool);
+    void onAddressTextChanged(const QString& text);
 
 protected:
 

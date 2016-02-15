@@ -1,6 +1,6 @@
 #include "application.hpp"
 #include "mainwindow.hpp"
-#include "InputBlock.hpp"
+#include "TcpInputBlock.hpp"
 
 Application::Application(int argc, char *argv[]) :
     qApp_(argc, argv)
@@ -15,7 +15,7 @@ bool Application::init()
 
     try
     {
-        pBlock = new TraceServer::InputBlock("default", 5000);
+        pBlock = new TraceServer::TcpInputBlock("default", kDefaultPort);
 
         server_.inputBlocks().add(pBlock);
 

@@ -29,7 +29,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Serveur :</string>
+         <string>Serveur Ip (Ipv4) :</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -54,6 +54,9 @@
       </item>
       <item>
        <widget class="QLineEdit" name="serverNameInput_">
+        <property name="inputMask">
+         <string/>
+        </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
@@ -76,9 +79,9 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="connectButton_">
+       <widget class="QPushButton" name="setButton_">
         <property name="text">
-         <string>Connect</string>
+         <string>set</string>
         </property>
        </widget>
       </item>

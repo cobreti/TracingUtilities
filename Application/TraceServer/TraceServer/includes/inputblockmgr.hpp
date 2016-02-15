@@ -24,7 +24,7 @@ namespace TraceServer
 
     protected:
 
-        using InputBlockMap = std::map<InputBlock::InputBlockNameT, InputBlock*>;
+        using InputBlockMap = std::map<QString, InputBlock*>;
 
     protected:
 

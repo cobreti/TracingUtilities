@@ -2,6 +2,7 @@
 #define OUTPUTWORKERMGR_HPP
 
 #include <QtCore>
+#include <QtNetwork>
 #include <map>
 
 #include "sources/outputitem.hpp"
@@ -17,6 +18,9 @@ public:
     void start( const OutputItem& item );
     void stop( const OutputItem::OutputItemIdT& itemId );
     void stopAll();
+
+    QHostAddress& serverAddress() { return serverAddress_; }
+    const QHostAddress& serverAddress() const { return serverAddress_; }
 
 signals:
 
@@ -36,6 +40,8 @@ protected:
 
     OutputWorkerMapT        workers_;
     QThreadPool             threadPool_;
+    QHostAddress            serverAddress_;
+    int                     port_;
 };
 
 #endif // OUTPUTWORKERMGR_HPP

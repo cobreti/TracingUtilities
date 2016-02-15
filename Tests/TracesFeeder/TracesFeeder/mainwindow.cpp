@@ -14,10 +14,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->addButton_->setEnabled(false);
-    ui->connectButton_->setEnabled(false);
+    ui->setButton_->setEnabled(false);
 
     pTable_ = new TracesTable(ui->tracesTableWidget_, workerMgr_);
     ui->tracesTableWidget_->setColumnWidth(0, 30);
+
+    QRegExp             ipRegExp("\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}");
+    QRegExpValidator    *pIpValidator = new QRegExpValidator(ipRegExp);
+    ui->serverNameInput_->setValidator(pIpValidator);
 
     connectSignalsSlots();
 }
@@ -50,7 +54,7 @@ void MainWindow::onAddTrace(bool)
 {
     QString         moduleName = ui->moduleNameInput_->text();
     QString         traceContent = ui->traceContentEdit_->document()->toPlainText();
-    OutputItem      item(moduleName, traceContent);
+    OutputItem      item(moduleName, traceContent, 10000);
 
     qDebug() << "trace content : " << traceContent;
 
@@ -68,6 +72,29 @@ void MainWindow::onTestBtn(bool) {
 }
 
 
+void MainWindow::onAddressEditingFinished()
+{
+
+    ui->setButton_->setEnabled(true);
+
+}
+
+void MainWindow::onSetAddress(bool)
+{
+    QString     address = ui->serverNameInput_->text();
+
+    qDebug() << "server address entered : " << address;
+
+    workerMgr_.serverAddress() = QHostAddress(address);
+
+    ui->setButton_->setEnabled(false);
+}
+
+void MainWindow::onAddressTextChanged(const QString &text)
+{
+    ui->setButton_->setEnabled(false);
+}
+
 void MainWindow::connectSignalsSlots()
 {
     connect(    ui->moduleNameInput_, SIGNAL(textChanged(QString)),
@@ -78,6 +105,12 @@ void MainWindow::connectSignalsSlots()
                 this, SLOT(onAddTrace(bool)) );
     connect(    ui->testBtn_, SIGNAL(clicked(bool)),
                 this, SLOT(onTestBtn(bool)) );
+    connect(    ui->serverNameInput_, SIGNAL(editingFinished()),
+                this, SLOT(onAddressEditingFinished()) );
+    connect(    ui->serverNameInput_, SIGNAL(textChanged(QString)),
+                this, SLOT(onAddressTextChanged(QString)) );
+    connect(    ui->setButton_, SIGNAL(clicked(bool)),
+                this, SLOT(onSetAddress(bool)) );
 }
 
 

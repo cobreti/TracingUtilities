@@ -33,6 +33,7 @@ void OutputWorker::run()
     while ( connected && !stopRequested_)
     {
         pSocket_->write(bytes);
+        pSocket_->flush();
         qDebug() << "output worker running for item : " << outputItem_.moduleName();
 
         QThread::msleep(outputItem_.interval());

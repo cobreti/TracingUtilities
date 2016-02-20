@@ -21,12 +21,18 @@ namespace TraceServer
 
     public slots:
 
+        void onSocketConnected();
         void onSocketDisconnected();
+        void onReadyRead();
+        void onSocketError(QAbstractSocket::SocketError socketError);
 
     protected:
 
         QTcpSocket      *pSocket_;
         bool            connected_;
+        QEventLoop      *pEventLoop_;
+        char            *pBuffer_;
+        int             bufferSize_;
     };
 }
 

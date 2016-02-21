@@ -27,4 +27,9 @@ macx:CONFIG(debug, debug|release) {
     LIBS += -L../../libs/macx/debug -lTraceServer
 }
 
+win32:CONFIG(debug, debug|release) {
+    LIBS += -L../../libs/win32/debug -lTraceServer
+}
+
+
 INCLUDEPATH += ../../TraceServer/TraceServer/includes

@@ -47,3 +47,8 @@ INCLUDEPATH += ./includes
 macx:CONFIG(debug, debug|release) {
     DESTDIR = ../../libs/macx/debug
 }
+
+win32:CONFIG(debug, debug|release) {
+    DESTDIR = ../../libs/win32/debug
+}
+

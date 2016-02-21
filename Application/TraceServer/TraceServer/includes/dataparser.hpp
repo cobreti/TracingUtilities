@@ -1,6 +1,8 @@
 #ifndef DATAPARSER_HPP
 #define DATAPARSER_HPP
 
+#include "includes/timestamptraceformater.hpp"
+
 namespace TraceServer
 {
     class DataParser
@@ -20,6 +22,8 @@ namespace TraceServer
         char*           pWritePos_;
         char*           pBufferEnd_;
         const int       bufferSize_;
+
+        TimestampFormater       timestampFormater_;
     };
 }
 

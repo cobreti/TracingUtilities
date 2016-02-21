@@ -29,9 +29,11 @@ namespace TraceServer
             if ( pWritePos_ == pBufferEnd_ )
             {
                 *pWritePos_ = '\0';
-                QString str(pBuffer_);
 
-                qDebug() << "partial trace line : " << str;
+                timestampFormater_.Format(pBuffer_, pWritePos_ - pBuffer_);
+//                QString str(pBuffer_);
+
+//                qDebug() << "partial trace line : " << str;
 
                 pWritePos_ = pBuffer_;
             }
@@ -41,8 +43,9 @@ namespace TraceServer
 
             if ( *pWritePos_ == '\0' )
             {
-                QString str(pBuffer_);
-                qDebug() << "trace line : " << str;
+                timestampFormater_.Format(pBuffer_, pWritePos_ - pBuffer_);
+//                QString str(pBuffer_);
+//                qDebug() << "trace line : " << str;
                 pWritePos_ = pBuffer_;
             }
             else

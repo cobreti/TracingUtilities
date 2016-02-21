@@ -20,7 +20,9 @@ SOURCES += \
     Sources/networkutility.cpp \
     Sources/tcpinputblock.cpp \
     Sources/socketreceiver.cpp \
-    Sources/dataparser.cpp
+    Sources/dataparser.cpp \
+    Sources/timestamptraceformater.cpp \
+    Sources/rawtrace.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -32,7 +34,9 @@ HEADERS += \
     includes/tcpinputblock.hpp \
     includes/socketreceiver.hpp \
     includes/databuffer.hpp \
-    includes/dataparser.hpp
+    includes/dataparser.hpp \
+    includes/timestamptraceformater.hpp \
+    includes/rawtrace.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

@@ -28,7 +28,7 @@ void OutputWorker::run()
 
     QString line = "{ " + outputItem_.moduleName() + " } / " + outputItem_.traceContent();
     QByteArray bytes = line.toLocal8Bit();
-    bytes.append("\0");
+    bytes.append('\0');
 
     while ( connected && !stopRequested_)
     {

@@ -19,7 +19,8 @@ SOURCES += \
     Sources/inputblockmgr.cpp \
     Sources/networkutility.cpp \
     Sources/tcpinputblock.cpp \
-    Sources/socketreceiver.cpp
+    Sources/socketreceiver.cpp \
+    Sources/dataparser.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -29,7 +30,9 @@ HEADERS += \
     includes/exceptions/iteminsertionfailure.hpp \
     includes/networkutility.hpp \
     includes/tcpinputblock.hpp \
-    includes/socketreceiver.hpp
+    includes/socketreceiver.hpp \
+    includes/databuffer.hpp \
+    includes/dataparser.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

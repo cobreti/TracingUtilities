@@ -1,15 +1,17 @@
 #include "includes/socketreceiver.hpp"
 
+#include <algorithm>
+
 namespace TraceServer
 {
     SocketReceiver::SocketReceiver(QTcpSocket *pSocket) : QObject(),
         pSocket_{pSocket},
         connected_{true},
         pEventLoop_{nullptr},
-        pBuffer_{nullptr},
-        bufferSize_{5}
+        dataBuffer_{kBufferSize},
+        dataParser_{kBufferSize}
     {
-
+        setAutoDelete(false);
     }
 
 
@@ -22,8 +24,6 @@ namespace TraceServer
     void SocketReceiver::run()
     {       
         pEventLoop_ = new QEventLoop();
-
-        pBuffer_ = new char[bufferSize_];
 
         connect(    pSocket_, SIGNAL(connected()),
                     this, SLOT(onSocketConnected()) );
@@ -39,8 +39,6 @@ namespace TraceServer
 
         pEventLoop_->exec();
 
-        delete[] pBuffer_;
-
         qDebug() << "SocketReceiver : running loop ending";
     }
 
@@ -54,24 +52,41 @@ namespace TraceServer
         qDebug() << "SocketReceiver : socket disconnected";
 
         pEventLoop_->exit();
-//        delete this;
     }
 
     void SocketReceiver::onReadyRead()
     {
-        qint64 bytesAvail = 0;
+        int bytesAvail = 0;
 
         while ( bytesAvail = pSocket_->bytesAvailable() )
         {
             qDebug() << "bytes available to read : " << bytesAvail;
-            qDebug() << "reading " << bufferSize_ << " bytes from socket";
-            pSocket_->read(pBuffer_, bufferSize_);
+
+            int bytesToRead = std::min( dataBuffer_.availableSize(), bytesAvail );
+
+            qDebug() << "reading " << bytesToRead << " bytes";
+
+            pSocket_->read( dataBuffer_.getWritePosForData(bytesToRead), bytesToRead );
+
+            if ( dataBuffer_.availableSize() == 0 )
+                processBuffer();
+        }
+
+        if ( !dataBuffer_.empty() )
+        {
+            processBuffer();
         }
     }
 
     void SocketReceiver::onSocketError(QAbstractSocket::SocketError socketError)
     {
         qDebug() << "SocketReceiver : socket error = " << socketError;
+    }
+
+    void SocketReceiver::processBuffer()
+    {
+        dataParser_.parse( dataBuffer_.bufferPos(), dataBuffer_.dataSize() );
+        dataBuffer_.reset();
     }
 }
 

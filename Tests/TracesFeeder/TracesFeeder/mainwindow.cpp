@@ -54,7 +54,7 @@ void MainWindow::onAddTrace(bool)
 {
     QString         moduleName = ui->moduleNameInput_->text();
     QString         traceContent = ui->traceContentEdit_->document()->toPlainText();
-    OutputItem      item(moduleName, traceContent, 200);
+    OutputItem      item(moduleName, traceContent, 1);
 
     qDebug() << "trace content : " << traceContent;
 

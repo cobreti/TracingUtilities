@@ -3,12 +3,21 @@
 
 #include <QtCore>
 #include <QtNetwork>
+#include <vector>
+
+#include "databuffer.hpp"
+#include "dataparser.hpp"
 
 namespace TraceServer
 {
     class SocketReceiver : public QObject, public QRunnable
     {
         Q_OBJECT
+
+        enum
+        {
+            kBufferSize = 8 * 1024
+        };
 
     public:
         SocketReceiver(QTcpSocket* pSocket);
@@ -28,11 +37,15 @@ namespace TraceServer
 
     protected:
 
-        QTcpSocket      *pSocket_;
-        bool            connected_;
-        QEventLoop      *pEventLoop_;
-        char            *pBuffer_;
-        int             bufferSize_;
+        void processBuffer();
+
+    protected:
+
+        QTcpSocket                  *pSocket_;
+        bool                        connected_;
+        QEventLoop                  *pEventLoop_;
+        DataBuffer                  dataBuffer_;
+        DataParser                  dataParser_;
     };
 }
 

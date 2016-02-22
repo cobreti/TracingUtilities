@@ -7,6 +7,8 @@
 
 #include "databuffer.hpp"
 #include "dataparser.hpp"
+#include "primarystorage.hpp"
+
 
 namespace TraceServer
 {
@@ -46,6 +48,7 @@ namespace TraceServer
         QEventLoop                  *pEventLoop_;
         DataBuffer                  dataBuffer_;
         DataParser                  dataParser_;
+        PrimaryStorage              primaryStorage_;
     };
 }
 

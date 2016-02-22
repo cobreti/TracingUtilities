@@ -5,10 +5,12 @@
 
 namespace TraceServer
 {
+    class PrimaryStorage;
+
     class DataParser
     {
     public:
-        DataParser(int bufferSize);
+        DataParser( PrimaryStorage* pStorage, int bufferSize);
         ~DataParser();
 
         DataParser(const DataParser&) = delete;

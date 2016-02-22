@@ -3,16 +3,22 @@
 
 namespace TraceServer
 {
+    class PrimaryStorage;
+
     class TimestampFormater
     {
     public:
-        TimestampFormater();
+        TimestampFormater(PrimaryStorage* pStorage);
         ~TimestampFormater();
 
         TimestampFormater(const TimestampFormater&) = delete;
         const TimestampFormater& operator = (const TimestampFormater &) = delete;
 
         void Format(char* content, int contentSize);
+
+    protected:
+
+        PrimaryStorage*     pPrimaryStorage_;
     };
 }
 

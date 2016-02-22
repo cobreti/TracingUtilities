@@ -4,11 +4,12 @@
 
 namespace TraceServer
 {
-    DataParser::DataParser(int bufferSize) :
+    DataParser::DataParser(PrimaryStorage* pStorage, int bufferSize) :
         pBuffer_{nullptr},
         pWritePos_{nullptr},
         pBufferEnd_{nullptr},
-        bufferSize_{bufferSize}
+        bufferSize_{bufferSize},
+        timestampFormater_{pStorage}
     {
         pBuffer_ = new char[bufferSize_];
         pWritePos_ = pBuffer_;

@@ -22,7 +22,8 @@ SOURCES += \
     Sources/socketreceiver.cpp \
     Sources/dataparser.cpp \
     Sources/timestamptraceformater.cpp \
-    Sources/rawtrace.cpp
+    Sources/rawtrace.cpp \
+    Sources/primarystorage.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -36,7 +37,8 @@ HEADERS += \
     includes/databuffer.hpp \
     includes/dataparser.hpp \
     includes/timestamptraceformater.hpp \
-    includes/rawtrace.hpp
+    includes/rawtrace.hpp \
+    includes/primarystorage.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

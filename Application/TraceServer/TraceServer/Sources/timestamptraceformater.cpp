@@ -4,9 +4,12 @@
 #include <cassert>
 #include <string>
 
+#include "includes/primarystorage.hpp"
+
 namespace TraceServer
 {
-    TimestampFormater::TimestampFormater()
+    TimestampFormater::TimestampFormater(PrimaryStorage* pStorage) :
+        pPrimaryStorage_{pStorage}
     {
 
     }
@@ -23,7 +26,8 @@ namespace TraceServer
         assert( strlen(content) == contentSize );
 
         QDateTime timestamp = QDateTime::currentDateTime();
+        RawTracePtr pTrace(new RawTrace(timestamp, content, contentSize));
 
-        qDebug() << timestamp << " --> " << content;
+        pPrimaryStorage_->add(pTrace);
     }
 }

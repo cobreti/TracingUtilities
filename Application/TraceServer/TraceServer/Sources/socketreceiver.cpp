@@ -9,7 +9,7 @@ namespace TraceServer
         connected_{true},
         pEventLoop_{nullptr},
         dataBuffer_{kBufferSize},
-        dataParser_{kBufferSize}
+        dataParser_{&primaryStorage_, kBufferSize}
     {
         setAutoDelete(false);
     }

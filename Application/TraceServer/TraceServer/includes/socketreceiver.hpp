@@ -36,6 +36,7 @@ namespace TraceServer
         void onSocketDisconnected();
         void onReadyRead();
         void onSocketError(QAbstractSocket::SocketError socketError);
+        void onMonitorTimeout();
 
     protected:
 
@@ -49,6 +50,8 @@ namespace TraceServer
         DataBuffer                  dataBuffer_;
         DataParser                  dataParser_;
         PrimaryStorage              primaryStorage_;
+        QTimer                      monitorTimer_;
+        int                         bytesRead_;
     };
 }
 

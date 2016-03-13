@@ -26,6 +26,7 @@ public slots:
     void onTableItemDoubleClicked( QTableWidgetItem* item );
     void onItemStarted( OutputItem::OutputItemIdT id );
     void onItemStopped( OutputItem::OutputItemIdT id );
+    void onItemError( OutputItem::OutputItemIdT id );
 
 protected:
 
@@ -37,6 +38,7 @@ protected:
     TableRowMap                         rows_;
 
     TracesTableRow::RowIconSet          icons_;
+    QIcon                               errorIcon_;
 
     OutputWorkerMgr                     &workerMgr_;
 };

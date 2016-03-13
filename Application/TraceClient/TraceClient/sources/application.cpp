@@ -5,9 +5,7 @@
 Application::Application(int argc, char *argv[]) :
     qApp_(argc, argv)
 {
-
 }
-
 
 bool Application::init()
 {
@@ -47,3 +45,4 @@ void Application::terminate()
 {
     server_.inputBlocks().stopAll();
 }
+

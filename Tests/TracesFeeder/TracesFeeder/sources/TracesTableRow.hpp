@@ -35,10 +35,12 @@ public:
     const OutputItem& item() const noexcept { return item_; }
 
     void setState(State state);
+    void setError();
+    void clearError();
 
 protected:
 
-    TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& iconSet );
+    TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& iconSet, const QIcon& errorIcon );
 
     void updateFromState();
 
@@ -48,13 +50,16 @@ protected:
     OutputItem          item_;
 
     QTableWidgetItem    *pModuleNameWidgetItem_;
+    QTableWidgetItem    *pFrequencyWidgetItem_;
     QTableWidgetItem    *pTraceContentWidgetItem_;
     QTableWidgetItem    *pStartStopWidgetItem_;
+    QTableWidgetItem    *pErrorIndicatorWidgetItem;
 
     RowIdT              rowId_;
     State               state_;
 
     const RowIconSet&   icons_;
+    const QIcon&        errorIcon_;
 };
 
 #endif // TracesTableRow_HPP

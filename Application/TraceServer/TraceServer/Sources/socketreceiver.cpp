@@ -9,7 +9,8 @@ namespace TraceServer
         connected_{true},
         pEventLoop_{nullptr},
         dataBuffer_{kBufferSize},
-        dataParser_{&primaryStorage_, kBufferSize}
+        dataParser_{&primaryStorage_, kBufferSize},
+        bytesRead_{0}
     {
         setAutoDelete(false);
     }
@@ -33,6 +34,8 @@ namespace TraceServer
                     this, SLOT(onReadyRead()) );
         connect(    pSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
                     this, SLOT(onSocketError(QAbstractSocket::SocketError)) );
+        connect(    &monitorTimer_, SIGNAL(timeout()),
+                        this, SLOT(onMonitorTimeout()) );
 
 
         qDebug() << "SocketReceiver : running loop starting";
@@ -51,22 +54,28 @@ namespace TraceServer
     {
         qDebug() << "SocketReceiver : socket disconnected";
 
+        monitorTimer_.stop();
         pEventLoop_->exit();
     }
 
     void SocketReceiver::onReadyRead()
     {
+        if ( !monitorTimer_.isActive() ) {
+            monitorTimer_.start(500);
+        }
+
         int bytesAvail = 0;
 
-        while ( bytesAvail = pSocket_->bytesAvailable() )
+        while ( (bytesAvail = pSocket_->bytesAvailable()) > 0 )
         {
-            qDebug() << "bytes available to read : " << bytesAvail;
+//            qDebug() << "bytes available to read : " << bytesAvail;
 
             int bytesToRead = std::min( dataBuffer_.availableSize(), bytesAvail );
 
-            qDebug() << "reading " << bytesToRead << " bytes";
+//            qDebug() << "reading " << bytesToRead << " bytes";
 
             pSocket_->read( dataBuffer_.getWritePosForData(bytesToRead), bytesToRead );
+            bytesRead_ += bytesToRead;
 
             if ( dataBuffer_.availableSize() == 0 )
                 processBuffer();
@@ -81,6 +90,12 @@ namespace TraceServer
     void SocketReceiver::onSocketError(QAbstractSocket::SocketError socketError)
     {
         qDebug() << "SocketReceiver : socket error = " << socketError;
+    }
+
+    void SocketReceiver::onMonitorTimeout()
+    {
+        qDebug() << bytesRead_ << " for interval of " << monitorTimer_.interval() << "ms";
+        bytesRead_ = 0;
     }
 
     void SocketReceiver::processBuffer()

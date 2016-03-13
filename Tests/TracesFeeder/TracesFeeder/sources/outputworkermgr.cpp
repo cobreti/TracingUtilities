@@ -20,6 +20,8 @@ void OutputWorkerMgr::start(const OutputItem &item)
                 this, SLOT(onItemStarted(OutputItem::OutputItemIdT)) );
     connect(    pWorker, SIGNAL(terminated(OutputItem::OutputItemIdT)),
                 this, SLOT(onItemStopped(OutputItem::OutputItemIdT)) );
+    connect(    pWorker, SIGNAL(error(OutputItem::OutputItemIdT)),
+                this, SLOT(onItemError(OutputItem::OutputItemIdT)) );
 
     threadPool_.start( static_cast<QRunnable*>(pWorker) );
 }
@@ -65,5 +67,11 @@ void OutputWorkerMgr::onItemStopped(OutputItem::OutputItemIdT id)
     OutputWorker* pWorker = pos->second;
     workers_.erase(pos);
     delete pWorker;
+}
+
+
+void OutputWorkerMgr::onItemError(OutputItem::OutputItemIdT id)
+{
+    emit itemError(id);
 }
 

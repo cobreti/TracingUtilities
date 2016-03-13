@@ -1,6 +1,8 @@
 #include "outputworker.hpp"
 #include "sources/outputitem.hpp"
 
+#include <chrono>
+
 
 OutputWorker::OutputWorker(const OutputItem &outputItem,  const QHostAddress& serverAddress, int port) : QObject(nullptr),
     outputItem_{outputItem},
@@ -32,11 +34,34 @@ void OutputWorker::run()
 
     while ( connected && !stopRequested_)
     {
-        pSocket_->write(bytes);
-        pSocket_->flush();
-        qDebug() << "output worker running for item : " << outputItem_.moduleName();
+        int count = 0;
+        auto timeBefore = std::chrono::high_resolution_clock::now();
 
-        QThread::msleep(outputItem_.interval());
+        while ( count < outputItem_.frequence() )
+        {
+            pSocket_->write(bytes);
+            pSocket_->flush();
+            ++ count;
+        }
+
+        auto timeAfter = std::chrono::high_resolution_clock::now();
+
+        std::chrono::duration<double> timeSpan = std::chrono::duration_cast<std::chrono::duration<double>>(timeAfter - timeBefore);
+        int sleepTime = (1-timeSpan.count()) * 1000;
+
+        qDebug() << "time to execute : " << timeSpan.count() << " -- remaining time to sleep : " << sleepTime << " --- count = " << count;
+
+        if ( sleepTime > 0.0 )
+        {
+            QThread::msleep(sleepTime);
+        }
+
+        if ( sleepTime < 0.0 )
+        {
+            // error
+            emit error(id());
+            break;
+        }
     }
 
     if ( connected )

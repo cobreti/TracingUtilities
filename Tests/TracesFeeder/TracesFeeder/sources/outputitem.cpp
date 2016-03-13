@@ -11,11 +11,11 @@ OutputItem::OutputItem() :
 }
 
 
-OutputItem::OutputItem(QString moduleName, QString traceContent, int intervalInMS) :
+OutputItem::OutputItem(QString moduleName, QString traceContent, int frequence) :
     moduleName_{moduleName},
     traceContent_{traceContent},
     id_{ ++ s_nextId_ },
-    msInterval_{intervalInMS}
+    frequence_{frequence}
 {
 }
 
@@ -24,7 +24,7 @@ OutputItem::OutputItem(const OutputItem &item) :
     moduleName_{item.moduleName_},
     traceContent_{item.traceContent_},
     id_{item.id_},
-    msInterval_{item.msInterval_}
+    frequence_{item.frequence_}
 {
 }
 
@@ -42,5 +42,5 @@ void OutputItem::Swap( OutputItem& item ) noexcept
     std::swap(moduleName_, item.moduleName_);
     std::swap(traceContent_, item.traceContent_);
     std::swap(id_, item.id_);
-    std::swap(msInterval_, item.msInterval_);
+    std::swap(frequence_, item.frequence_);
 }

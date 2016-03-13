@@ -54,14 +54,12 @@ void MainWindow::onAddTrace(bool)
 {
     QString         moduleName = ui->moduleNameInput_->text();
     QString         traceContent = ui->traceContentEdit_->document()->toPlainText();
-    OutputItem      item(moduleName, traceContent, 1);
+    int             frequence = ui->frequenceEdit_->text().toInt();
+    OutputItem      item(moduleName, traceContent, frequence);
 
     qDebug() << "trace content : " << traceContent;
 
     pTable_->addRow(item);
-//    TableOutputItem tableItem(item, ui->tracesTableWidget_);
-
-//    tableItems_.insert( std::make_pair(tableItem.row(), std::move(tableItem)) );
 }
 
 

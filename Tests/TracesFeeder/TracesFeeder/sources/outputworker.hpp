@@ -24,6 +24,7 @@ signals:
 
     void started(OutputItem::OutputItemIdT);
     void terminated(OutputItem::OutputItemIdT);
+    void error(OutputItem::OutputItemIdT);
 
 public slots:
 

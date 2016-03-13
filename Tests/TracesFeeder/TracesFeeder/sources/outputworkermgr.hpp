@@ -26,11 +26,13 @@ signals:
 
     void itemStarted(OutputItem::OutputItemIdT);
     void itemStopped(OutputItem::OutputItemIdT);
+    void itemError(OutputItem::OutputItemIdT);
 
 public slots:
 
     void onItemStarted(OutputItem::OutputItemIdT id);
     void onItemStopped(OutputItem::OutputItemIdT id);
+    void onItemError(OutputItem::OutputItemIdT id);
 
 protected:
 

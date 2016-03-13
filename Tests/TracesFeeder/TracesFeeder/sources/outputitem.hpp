@@ -13,7 +13,7 @@ public:
 
 public:
     OutputItem();
-    OutputItem(QString moduleName, QString traceContent, int intervalInMS);
+    OutputItem(QString moduleName, QString traceContent, int frequence);
     OutputItem(const OutputItem& item);
 
     OutputItem& operator = (const OutputItem& item);
@@ -23,7 +23,7 @@ public:
     const OutputItemIdT& id() const noexcept { return id_; }
 
     // interval in milliseconds
-    const int interval() const { return msInterval_; }
+    const int frequence() const { return frequence_; }
 
 protected:
 
@@ -34,7 +34,7 @@ protected:
     QString             moduleName_;
     QString             traceContent_;
     OutputItemIdT       id_;
-    int                 msInterval_;
+    int                 frequence_; // frequence per sec
 
     static std::atomic<OutputItemIdT>        s_nextId_;
 };

@@ -2,6 +2,7 @@
 #define APPLICATION_HPP
 
 #include <QApplication>
+#include <QtCore>
 #include "Server.hpp"
 
 enum

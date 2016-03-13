@@ -3,12 +3,18 @@
 #include "TracesTableRow.hpp"
 
 
-TracesTableRow::TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& icons ) :
+TracesTableRow::TracesTableRow( int insertRow, const OutputItem& item, QTableWidget *pTableWidget, const RowIconSet& icons, const QIcon& errorIcon ) :
     pTableWidget_{pTableWidget},
     item_{item},
+    pModuleNameWidgetItem_{},
+    pFrequencyWidgetItem_{},
+    pTraceContentWidgetItem_{},
+    pStartStopWidgetItem_{},
+    pErrorIndicatorWidgetItem{},
     rowId_{item.id()},
     state_{eState_Stopped},
-    icons_{icons}
+    icons_{icons},
+    errorIcon_{errorIcon}
 {
     if ( nullptr == pTableWidget )
     {
@@ -32,9 +38,19 @@ TracesTableRow::TracesTableRow( int insertRow, const OutputItem& item, QTableWid
     pStartStopWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
     pStartStopWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
 
-    pTableWidget_->setItem(insertRow, 0, pStartStopWidgetItem_);
-    pTableWidget_->setItem(insertRow, 1, pModuleNameWidgetItem_);
-    pTableWidget_->setItem(insertRow, 2, pTraceContentWidgetItem_);
+    pErrorIndicatorWidgetItem = new QTableWidgetItem();
+    pErrorIndicatorWidgetItem->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
+    pErrorIndicatorWidgetItem->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
+
+    pFrequencyWidgetItem_ = new QTableWidgetItem(QString().setNum(item.frequence()));
+    pFrequencyWidgetItem_->setData( Qt::ItemDataRole::UserRole, QVariant(id()) );
+    pFrequencyWidgetItem_->setFlags( Qt::ItemFlag::ItemIsEnabled | Qt::ItemFlag::ItemIsSelectable );
+
+    pTableWidget_->setItem(insertRow, 0, pErrorIndicatorWidgetItem);
+    pTableWidget_->setItem(insertRow, 1, pStartStopWidgetItem_);
+    pTableWidget_->setItem(insertRow, 2, pModuleNameWidgetItem_);
+    pTableWidget_->setItem(insertRow, 3, pFrequencyWidgetItem_);
+    pTableWidget_->setItem(insertRow, 4, pTraceContentWidgetItem_);
 
     updateFromState();
 }
@@ -55,6 +71,15 @@ void TracesTableRow::setState(State state)
     }
 }
 
+void TracesTableRow::setError()
+{
+    pErrorIndicatorWidgetItem->setIcon( errorIcon_ );
+}
+
+void TracesTableRow::clearError()
+{
+    pErrorIndicatorWidgetItem->setIcon(QIcon());
+}
 
 void TracesTableRow::updateFromState()
 {

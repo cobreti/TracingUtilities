@@ -14,12 +14,16 @@ TracesTable::TracesTable(QTableWidget* pTable, OutputWorkerMgr& workerMgr) :
     icons_.set( TracesTableRow::eState_Starting, QIcon(":/TracesList/Icons/Starting.png") );
     icons_.set( TracesTableRow::eState_Stoping, QIcon(":/TracesList/Icons/Stoping.png") );
 
+    errorIcon_ = QIcon(":/TracesList/Icons/error.png");
+
     connect(    pTable_, SIGNAL(itemDoubleClicked(QTableWidgetItem*)),
                 this, SLOT(onTableItemDoubleClicked(QTableWidgetItem*)) );
     connect(    &workerMgr, SIGNAL(itemStarted(OutputItem::OutputItemIdT)),
                 this, SLOT(onItemStarted(OutputItem::OutputItemIdT)) );
     connect(    &workerMgr, SIGNAL(itemStopped(OutputItem::OutputItemIdT)),
                 this, SLOT(onItemStopped(OutputItem::OutputItemIdT)) );
+    connect(    &workerMgr, SIGNAL(itemError(OutputItem::OutputItemIdT)),
+                this, SLOT(onItemError(OutputItem::OutputItemIdT)) );
 }
 
 
@@ -28,7 +32,7 @@ void TracesTable::addRow(const OutputItem &item)
     int rows = pTable_->rowCount();
     pTable_->setRowCount(rows+1);
 
-    TracesTableRow      *pRow = new TracesTableRow(rows, item, pTable_, icons_);
+    TracesTableRow      *pRow = new TracesTableRow(rows, item, pTable_, icons_, errorIcon_);
 
     rows_.insert( std::make_pair(pRow->id(), pRow) );
 }
@@ -70,6 +74,7 @@ void TracesTable::onItemStarted(OutputItem::OutputItemIdT id)
         return;
 
     pos->second->setState(TracesTableRow::eState_Playing);
+    pos->second->clearError();
 }
 
 
@@ -80,4 +85,14 @@ void TracesTable::onItemStopped(OutputItem::OutputItemIdT id)
         return;
 
     pos->second->setState(TracesTableRow::eState_Stopped);
+}
+
+
+void TracesTable::onItemError(OutputItem::OutputItemIdT id)
+{
+    auto pos = rows_.find(id);
+    if ( pos == rows_.end() )
+        return;
+
+    pos->second->setError();
 }

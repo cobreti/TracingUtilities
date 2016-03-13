@@ -17,8 +17,8 @@ namespace TraceServer
     {
         lists_[activeList_].push_back(pTrace);
 
-        qDebug() << "adding trace : " << pTrace->timestamp() << " --> " << pTrace->content();
-        qDebug() << "new trace count : " << lists_[activeList_].size();
+//        qDebug() << "adding trace : " << pTrace->timestamp() << " --> " << pTrace->content();
+//        qDebug() << "new trace count : " << lists_[activeList_].size();
     }
 }
 

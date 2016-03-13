@@ -49,6 +49,8 @@ namespace TraceServer
             SocketReceiver* pReceiver = new SocketReceiver(pSocket);
             threadPool_.start(pReceiver);
 
+            emit newConnection(pReceiver);
+
             pSocket = pServer_->nextPendingConnection();
         }
     }

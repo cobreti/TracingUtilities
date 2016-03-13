@@ -3,7 +3,8 @@
 
 namespace TraceServer
 {
-    Server::Server()
+    Server::Server() :
+        inputBlockMgr_{messageBus_}
     {
     }
 

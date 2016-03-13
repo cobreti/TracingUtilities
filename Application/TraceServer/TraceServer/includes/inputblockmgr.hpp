@@ -3,15 +3,19 @@
 
 #include <string>
 #include <map>
+#include <algorithm>
 
 #include "InputBlock.hpp"
 
 namespace TraceServer
 {
+    class MessageBus;
+    class ConnectionsMonitor;
+
     class InputBlockMgr
     {
     public:
-        InputBlockMgr();
+        InputBlockMgr(MessageBus &msgBus);
         virtual ~InputBlockMgr();
 
         InputBlockMgr(const InputBlockMgr&) = delete;
@@ -24,11 +28,41 @@ namespace TraceServer
 
     protected:
 
-        using InputBlockMap = std::map<QString, InputBlock*>;
+        class InputBlockEntry
+        {
+        public:
+            InputBlockEntry(InputBlock *pBlock, ConnectionsMonitor *pMonitor) : pInputBlock_{pBlock}, pMonitor_{pMonitor} {}
+            InputBlockEntry(const InputBlockEntry& entry) : pInputBlock_{entry.pInputBlock_}, pMonitor_{entry.pMonitor_} {}
+
+            const InputBlockEntry& operator = (const InputBlockEntry &entry)
+            {
+                InputBlockEntry(entry).Swap(*this);
+
+                return *this;
+            }
+
+            InputBlock* inputBlock() const { return pInputBlock_; }
+            ConnectionsMonitor* monitor() const { return pMonitor_; }
+
+        protected:
+
+            void Swap(InputBlockEntry &entry)
+            {
+                std::swap(pInputBlock_, entry.pInputBlock_);
+                std::swap(pMonitor_, entry.pMonitor_);
+            }
+
+        protected:
+            InputBlock              *pInputBlock_;
+            ConnectionsMonitor      *pMonitor_;
+        };
+
+        using InputBlockMap = std::map<QString, InputBlockEntry>;
 
     protected:
 
         InputBlockMap       inputBlocks_;
+        MessageBus          &msgBus_;
     };
 }
 

@@ -23,7 +23,9 @@ SOURCES += \
     Sources/dataparser.cpp \
     Sources/timestamptraceformater.cpp \
     Sources/rawtrace.cpp \
-    Sources/primarystorage.cpp
+    Sources/primarystorage.cpp \
+    Sources/messagebus.cpp \
+    Sources/monitors/connectionsmonitor.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -38,7 +40,9 @@ HEADERS += \
     includes/dataparser.hpp \
     includes/timestamptraceformater.hpp \
     includes/rawtrace.hpp \
-    includes/primarystorage.hpp
+    includes/primarystorage.hpp \
+    includes/messagebus.hpp \
+    includes/monitors/connectionsmonitor.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

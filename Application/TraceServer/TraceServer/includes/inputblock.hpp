@@ -7,6 +7,8 @@
 
 namespace TraceServer
 {
+    class SocketReceiver;
+
     class InputBlock : public QObject
     {
         Q_OBJECT
@@ -25,6 +27,10 @@ namespace TraceServer
 
         virtual void start();
         virtual void stop();
+
+    signals:
+
+        void newConnection(SocketReceiver*);
 
     protected:
 

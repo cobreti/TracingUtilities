@@ -30,7 +30,11 @@ namespace TraceServer
 
         virtual void run() override;
 
-    public slots:
+    signals:
+
+        void connectionTerminated(SocketReceiver*);
+
+    protected slots:
 
         void onSocketConnected();
         void onSocketDisconnected();

@@ -2,6 +2,7 @@
 #define SERVER_HPP
 
 #include "inputblockMgr.hpp"
+#include "messagebus.hpp"
 
 namespace TraceServer
 {
@@ -19,6 +20,7 @@ namespace TraceServer
         InputBlockMgr& inputBlocks() { return inputBlockMgr_; }
 
     protected:
+        MessageBus          messageBus_;
         InputBlockMgr       inputBlockMgr_;
     };
 }

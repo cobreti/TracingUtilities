@@ -1,11 +1,13 @@
 #include "inputblockmgr.hpp"
+#include "monitors/connectionsmonitor.hpp"
 #include "exceptions/itemalreadyexistsincontainer.hpp"
 #include "exceptions/iteminsertionfailure.hpp"
 
 namespace TraceServer
 {
 
-    InputBlockMgr::InputBlockMgr()
+    InputBlockMgr::InputBlockMgr(MessageBus &msgBus) :
+        msgBus_{msgBus}
     {
 
     }
@@ -31,10 +33,13 @@ namespace TraceServer
             throw Exceptions::ItemAlreadyInContainer("given item is already in container");
         }
 
-        auto res = inputBlocks_.insert( std::make_pair(name, pBlock) );
+        ConnectionsMonitor *pMonitor = new ConnectionsMonitor(*pBlock, msgBus_);
+
+        auto res = inputBlocks_.insert( std::make_pair(name, InputBlockEntry(pBlock, pMonitor)) );
         if ( !res.second )
         {
             throw Exceptions::ItemInsertionFailure("failure to add input block");
+            delete pMonitor;
         }
     }
 
@@ -43,7 +48,7 @@ namespace TraceServer
     {
         for (auto p : inputBlocks_)
         {
-            p.second->start();
+            p.second.inputBlock()->start();
         }
     }
 
@@ -52,7 +57,7 @@ namespace TraceServer
     {
         for (auto p : inputBlocks_)
         {
-            p.second->stop();
+            p.second.inputBlock()->stop();
         }
     }
 }

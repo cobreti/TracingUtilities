@@ -4,6 +4,7 @@
 #include <QApplication>
 #include <QtCore>
 #include "Server.hpp"
+#include "monitorpanel.hpp"
 
 enum
 {
@@ -12,6 +13,10 @@ enum
 
 class Application
 {
+public:
+
+    static Application& instance();
+
 public:
     Application(int argc, char *argv[]);
 
@@ -22,10 +27,18 @@ public:
     int run();
     void terminate();
 
+    MonitorPanel& monitorPanel() { return monitorPanel_; }
+
 protected:
 
     QApplication            qApp_;
     TraceServer::Server     server_;
+
+    MonitorPanel            monitorPanel_;
+
+private:
+
+    static Application      *s_pInstance;
 };
 
 #endif // APPLICATION_HPP

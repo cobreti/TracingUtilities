@@ -2,9 +2,18 @@
 #include "mainwindow.hpp"
 #include "TcpInputBlock.hpp"
 
+Application* Application::s_pInstance = nullptr;
+
+Application& Application::instance()
+{
+    return *s_pInstance;
+}
+
+
 Application::Application(int argc, char *argv[]) :
     qApp_(argc, argv)
 {
+    s_pInstance = this;
 }
 
 bool Application::init()

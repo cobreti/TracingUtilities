@@ -16,12 +16,18 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    sources/application.cpp
+    sources/application.cpp \
+    MonitorPanelWidget.cpp \
+    sources/MonitorPanel.cpp
 
 HEADERS  += mainwindow.hpp \
-    sources/application.hpp
+    sources/application.hpp \
+    MainWindow.h \
+    MonitorPanelWidget.hpp \
+    sources/MonitorPanel.hpp
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    MonitorPanelWidget.ui
 
 macx:CONFIG(debug, debug|release) {
     LIBS += -L../../libs/macx/debug -lTraceServer

@@ -17,3 +17,15 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+void MainWindow::onShowMonitorPanel(bool)
+{
+    QPoint pos = window()->frameGeometry().topLeft();
+
+    pos.rx() += 50;
+    pos.ry() += 50;
+
+    Application::instance().monitorPanel().show(pos);
+//    Application::instance().showMonitorPanel(pos);
+}

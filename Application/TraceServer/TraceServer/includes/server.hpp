@@ -18,6 +18,7 @@ namespace TraceServer
         Server const operator = (const Server&) = delete;
 
         InputBlockMgr& inputBlocks() { return inputBlockMgr_; }
+        MessageBus& messageBus() { return messageBus_; }
 
     protected:
         MessageBus          messageBus_;

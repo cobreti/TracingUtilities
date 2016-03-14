@@ -28,6 +28,7 @@ public:
     void terminate();
 
     MonitorPanel& monitorPanel() { return monitorPanel_; }
+    TraceServer::Server& server() { return server_; }
 
 protected:
 

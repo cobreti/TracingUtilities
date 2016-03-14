@@ -1,6 +1,9 @@
 #include "includes/Monitors/ConnectionsMonitor.hpp"
 #include "includes/socketreceiver.hpp"
 #include "includes/inputblock.hpp"
+#include "MessageBus.hpp"
+
+#include "messages/ConnectionsCountChanged.hpp"
 
 namespace TraceServer
 {
@@ -22,6 +25,8 @@ namespace TraceServer
         ++ connectionsCount_;
 
         qDebug() << "ConnectionsMonitor -- connections count now : " << connectionsCount_;
+
+        msgBus_.send( Messages::ConnectionsCountChanged(connectionsCount_) );
     }
 
 
@@ -31,6 +36,8 @@ namespace TraceServer
                     this, SLOT(onConnectionClosed(SocketReceiver*)) );
 
         -- connectionsCount_;
+
+        msgBus_.send( Messages::ConnectionsCountChanged(connectionsCount_) );
 
         qDebug() << "ConnectionsMonitor -- connections count now : " << connectionsCount_;
     }

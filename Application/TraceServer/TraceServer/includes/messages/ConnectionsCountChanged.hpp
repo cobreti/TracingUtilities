@@ -1,0 +1,24 @@
+#ifndef CONNECTIONSCOUNTCHANGED_HPP
+#define CONNECTIONSCOUNTCHANGED_HPP
+
+#include "messages/Message.hpp"
+
+namespace TraceServer
+{
+    namespace Messages
+    {
+        class ConnectionsCountChanged : public Message
+        {
+        public:
+            ConnectionsCountChanged(int count);
+
+            int count() const { return connectionsCount_; }
+
+        protected:
+
+            int     connectionsCount_;
+        };
+    }
+}
+
+#endif // CONNECTIONSCOUNTCHANGED_HPP

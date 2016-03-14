@@ -25,7 +25,10 @@ SOURCES += \
     Sources/rawtrace.cpp \
     Sources/primarystorage.cpp \
     Sources/messagebus.cpp \
-    Sources/monitors/connectionsmonitor.cpp
+    Sources/monitors/connectionsmonitor.cpp \
+    Sources/messages/Message.cpp \
+    Sources/messages/ConnectionsCountChanged.cpp \
+    Sources/MessageBusConnector.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -42,7 +45,10 @@ HEADERS += \
     includes/rawtrace.hpp \
     includes/primarystorage.hpp \
     includes/messagebus.hpp \
-    includes/monitors/connectionsmonitor.hpp
+    includes/monitors/connectionsmonitor.hpp \
+    includes/messages/Message.hpp \
+    includes/messages/ConnectionsCountChanged.hpp \
+    includes/MessageBusConnector.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

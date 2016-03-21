@@ -35,7 +35,7 @@ namespace TraceServer
         connect(    pSocket_, SIGNAL(error(QAbstractSocket::SocketError)),
                     this, SLOT(onSocketError(QAbstractSocket::SocketError)) );
         connect(    &monitorTimer_, SIGNAL(timeout()),
-                        this, SLOT(onMonitorTimeout()) );
+                    this, SLOT(onMonitorTimeout()) );
 
 
         qDebug() << "SocketReceiver : running loop starting";

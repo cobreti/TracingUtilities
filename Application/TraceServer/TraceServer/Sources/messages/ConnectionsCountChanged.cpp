@@ -5,9 +5,22 @@ namespace TraceServer
     namespace Messages
     {
         ConnectionsCountChanged::ConnectionsCountChanged(int count) :
+            Message(IDs::kConnectionsCountChanged),
             connectionsCount_{count}
         {
 
+        }
+
+        ConnectionsCountChanged::ConnectionsCountChanged(const ConnectionsCountChanged &other) :
+            Message(*this),
+            connectionsCount_{other.connectionsCount_}
+        {
+
+        }
+
+        Message* ConnectionsCountChanged::cloneToPtr() const
+        {
+            return new ConnectionsCountChanged(*this);
         }
     }
 }

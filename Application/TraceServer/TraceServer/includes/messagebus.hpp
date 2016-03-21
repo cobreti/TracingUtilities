@@ -2,7 +2,7 @@
 #define MESSAGEBUS_HPP
 
 #include <QtCore>
-#include "messages/Message.hpp"
+#include "MessageQueue.hpp"
 
 namespace TraceServer
 {
@@ -10,7 +10,6 @@ namespace TraceServer
     {
         class Message;
     }
-
 
     class MessageBus : public QObject
     {
@@ -24,28 +23,30 @@ namespace TraceServer
 
         void send( const Messages::Message &msg );
 
-    public:
-
-        friend class MessageBusConnector;
-
-        class MessageContainer
-        {
-        public:
-            MessageContainer( const Messages::Message &msg ) : msg_{msg} {}
-            MessageContainer(const MessageContainer& msgContainer) : msg_{msgContainer.msg_} {}
-
-            const Messages::Message& msg() { return msg_; }
-
-        protected:
-            const Messages::Message   &msg_;
-        };
-
     signals:
-
-        void newMessage( MessageBus::MessageContainer &msgContainer );
 
     protected slots:
 
+    private:
+
+        class MBCore : public QThread
+        {
+        public:
+            MBCore(MessageBus &owner);
+
+        protected:
+
+            virtual void run() override;
+
+        private:
+            MessageBus      &owner_;
+        };
+
+    private:
+
+        MessageQueue        *pIn_;
+        MessageQueue        *pOut_;
+        QMutex              queueSwapMutex_;
     };
 }
 

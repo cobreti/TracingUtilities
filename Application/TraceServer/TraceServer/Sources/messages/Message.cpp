@@ -4,7 +4,11 @@ namespace TraceServer
 {
     namespace Messages
     {
-        Message::Message()
+        Message::Message(MessageID id) : id_{id}
+        {
+        }
+
+        Message::Message(const Message &msg) : id_{msg.id_}
         {
 
         }

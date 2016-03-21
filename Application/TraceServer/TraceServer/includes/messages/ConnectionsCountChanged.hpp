@@ -11,8 +11,11 @@ namespace TraceServer
         {
         public:
             ConnectionsCountChanged(int count);
+            ConnectionsCountChanged(const ConnectionsCountChanged &other);
 
             int count() const { return connectionsCount_; }
+
+            virtual Message* cloneToPtr() const;
 
         protected:
 

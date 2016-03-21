@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "MessageBus.hpp"
-#include "MessageBusConnector.hpp"
+
 
 namespace Ui {
 class MonitorPanelWidget;
@@ -27,10 +27,6 @@ protected slots:
 protected:
 
     virtual void closeEvent(QCloseEvent *) override;
-
-protected:
-
-    TraceServer::MessageBusConnector        *pMsgBusConnector;
 
 private:
     Ui::MonitorPanelWidget *ui;

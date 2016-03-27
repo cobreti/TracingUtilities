@@ -1,6 +1,6 @@
 #include "MonitorPanelWidget.hpp"
 #include "ui_MonitorPanelWidget.h"
-#include "sources/application.hpp"
+//#include "sources/application.hpp"
 
 MonitorPanelWidget::MonitorPanelWidget(QWidget *parent) :
     QWidget(parent),
@@ -8,8 +8,8 @@ MonitorPanelWidget::MonitorPanelWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    auto &server = Application::instance().server();
-    auto &msgBus = server.messageBus();
+//    auto &server = Application::instance().server();
+//    auto &msgBus = server.messageBus();
 }
 
 MonitorPanelWidget::~MonitorPanelWidget()

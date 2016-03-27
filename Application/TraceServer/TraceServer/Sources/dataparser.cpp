@@ -9,7 +9,8 @@ namespace TraceServer
         pWritePos_{nullptr},
         pBufferEnd_{nullptr},
         bufferSize_{bufferSize},
-        timestampFormater_{pStorage}
+        timestampFormater_{pStorage},
+        count_{0}
     {
         pBuffer_ = new char[bufferSize_];
         pWritePos_ = pBuffer_;
@@ -32,27 +33,32 @@ namespace TraceServer
                 *pWritePos_ = '\0';
 
                 timestampFormater_.Format(pBuffer_, pWritePos_ - pBuffer_);
-//                QString str(pBuffer_);
 
-//                qDebug() << "partial trace line : " << str;
+//                QString str(pBuffer_);
+//                qDebug() << count_ << + " partial trace line : " << str;
 
                 pWritePos_ = pBuffer_;
             }
 
             *pWritePos_ = *pBuffer;
             pBuffer ++;
+            count_ ++;
 
             if ( *pWritePos_ == '\0' )
             {
                 timestampFormater_.Format(pBuffer_, pWritePos_ - pBuffer_);
+
 //                QString str(pBuffer_);
-//                qDebug() << "trace line : " << str;
+//                qDebug() << count_ << + " trace line : " << str;
+
                 pWritePos_ = pBuffer_;
             }
             else
             {
                 pWritePos_ ++;
             }
+
+            count_ ++;
         }
     }
 }

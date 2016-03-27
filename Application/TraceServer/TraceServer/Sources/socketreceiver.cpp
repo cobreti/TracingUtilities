@@ -54,7 +54,7 @@ namespace TraceServer
     {
         qDebug() << "SocketReceiver : socket disconnected";
 
-        emit connectionTerminated(this);
+//        emit connectionTerminated(this);
 
         monitorTimer_.stop();
         pEventLoop_->exit();
@@ -62,6 +62,8 @@ namespace TraceServer
 
     void SocketReceiver::onReadyRead()
     {
+//        qDebug() << "onReadyRead started";
+
         if ( !monitorTimer_.isActive() ) {
             monitorTimer_.start(500);
         }
@@ -87,6 +89,8 @@ namespace TraceServer
         {
             processBuffer();
         }
+
+//        qDebug() << "onReadyRead terminated";
     }
 
     void SocketReceiver::onSocketError(QAbstractSocket::SocketError socketError)

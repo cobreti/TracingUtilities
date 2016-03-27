@@ -1,17 +1,14 @@
-#include "sources/Application.hpp"
+#include "sources/TraceClientApp.hpp"
+#include "MainWindow.h"
 
 int main(int argc, char *argv[])
 {
-    Application     app(argc, argv);
+    int     ret{0};
+    TraceClientApp      *pApp = new TraceClientApp(argc, argv);
 
-    int     ret{-1};
+    pApp->run();
 
-    if ( app.init() )
-    {
-        ret = app.run();
-
-        app.terminate();
-    }
+    delete pApp;
 
     return ret;
 }

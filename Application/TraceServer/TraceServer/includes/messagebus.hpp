@@ -11,6 +11,11 @@ namespace TraceServer
         class Message;
     }
 
+    class MBCore;
+
+    /**
+     * @brief The MessageBus class
+     */
     class MessageBus : public QObject
     {
         Q_OBJECT
@@ -23,30 +28,49 @@ namespace TraceServer
 
         void send( const Messages::Message &msg );
 
-    signals:
+        void start();
+        void stop();
 
     protected slots:
 
-    private:
-
-        class MBCore : public QThread
-        {
-        public:
-            MBCore(MessageBus &owner);
-
-        protected:
-
-            virtual void run() override;
-
-        private:
-            MessageBus      &owner_;
-        };
+        void onMBCoreStarted();
 
     private:
 
-        MessageQueue        *pIn_;
-        MessageQueue        *pOut_;
-        QMutex              queueSwapMutex_;
+        MBCore              *pCore_;
+    };
+
+
+    /**
+     * @brief The MBCore class
+     */
+    class MBCore : public QThread
+    {
+        Q_OBJECT
+
+    public:
+        MBCore(MessageBus &owner);
+
+        void start();
+        void stop();
+
+        void push( const Messages::Message& msg );
+
+    protected:
+
+        virtual void run() override;
+
+    protected:
+
+    protected slots:
+
+        void processMessages();
+
+    private:
+        MessageBus      &owner_;
+        MessageQueue    msgQueue_;
+        QEventLoop      *pEventLoop_;
+        QTimer          checkMsgTimer_;
     };
 }
 

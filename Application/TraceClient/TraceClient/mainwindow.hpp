@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "server.hpp"
+//#include "server.hpp"
 
 namespace Ui {
     class MainWindow;
@@ -24,7 +24,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
 
-    TraceServer::Server     server_;
+//    TraceServer::Server     server_;
 };
 
 #endif // MAINWINDOW_HPP

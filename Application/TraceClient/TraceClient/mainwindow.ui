@@ -155,24 +155,7 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections>
-  <connection>
-   <sender>showMonitorPanelBtn</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>MainWindow</receiver>
-   <slot>onShowMonitorPanel(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>310</x>
-     <y>125</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>304</x>
-     <y>208</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>onShowMonitorPanel(bool)</slot>
  </slots>

@@ -16,15 +16,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    sources/application.cpp \
     MonitorPanelWidget.cpp \
-    sources/MonitorPanel.cpp
+    sources/MonitorPanel.cpp \
+    sources/TraceClientApp.cpp
 
 HEADERS  += mainwindow.hpp \
-    sources/application.hpp \
     MainWindow.h \
     MonitorPanelWidget.hpp \
-    sources/MonitorPanel.hpp
+    sources/MonitorPanel.hpp \
+    sources/TraceClientApp.hpp
 
 FORMS    += mainwindow.ui \
     MonitorPanelWidget.ui

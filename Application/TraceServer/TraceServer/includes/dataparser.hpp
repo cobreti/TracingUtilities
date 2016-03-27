@@ -26,6 +26,8 @@ namespace TraceServer
         const int       bufferSize_;
 
         TimestampFormater       timestampFormater_;
+
+        int             count_;
     };
 }
 

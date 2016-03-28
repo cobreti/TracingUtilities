@@ -4,7 +4,7 @@
 #include "server.hpp"
 
 
-TraceClientApp::TraceClientApp(int argc, char *argv[]) : QObject(),
+Application::Application(int argc, char *argv[]) : QObject(),
     qApp_{argc, argv},
     pServer_{nullptr},
     pMainWindow_{nullptr}
@@ -12,14 +12,14 @@ TraceClientApp::TraceClientApp(int argc, char *argv[]) : QObject(),
 }
 
 
-TraceClientApp::~TraceClientApp()
+Application::~Application()
 {
 //    delete pMainWindow_;
     delete pServer_;
 }
 
 
-void TraceClientApp::run()
+void Application::run()
 {
     startTimer_.setSingleShot(true);
     startTimer_.start(200);
@@ -40,7 +40,7 @@ void TraceClientApp::run()
 }
 
 
-void TraceClientApp::onStart()
+void Application::onStart()
 {
     TraceServer::InputBlock *pBlock = nullptr;
 

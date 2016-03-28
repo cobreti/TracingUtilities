@@ -50,7 +50,8 @@ HEADERS += \
     includes/messages/ConnectionsCountChanged.hpp \
     includes/messages/IMessageHandler.hpp \
     includes/MessageQueue.hpp \
-    includes/messages/MessageIDs.hpp
+    includes/messages/MessageIDs.hpp \
+    includes/MsgBucket.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

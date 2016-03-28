@@ -2,6 +2,7 @@
 #define MESSAGE_HPP
 
 #include "messages/MessageIDs.hpp"
+#include "MsgBucket.hpp"
 
 namespace TraceServer
 {

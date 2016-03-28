@@ -12,13 +12,13 @@ namespace TraceServer
 }
 
 
-class TraceClientApp : public QObject
+class Application : public QObject
 {
     Q_OBJECT
 
 public:
-    TraceClientApp(int argc, char *argv[]);
-    virtual ~TraceClientApp();
+    Application(int argc, char *argv[]);
+    virtual ~Application();
 
     void run();
 

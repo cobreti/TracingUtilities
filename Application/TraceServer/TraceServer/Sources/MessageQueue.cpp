@@ -12,9 +12,8 @@ namespace TraceServer
     }
 
 
-    void MessageQueue::add(const Messages::Message &msg)
+    void MessageQueue::add(Messages::Message *pMsg)
     {
-        Messages::Message*  pMsg = msg.cloneToPtr();
         if (pMsg != nullptr)
         {
             QMutexLocker        locker(&lock_);

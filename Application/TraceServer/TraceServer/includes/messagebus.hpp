@@ -26,7 +26,7 @@ namespace TraceServer
         MessageBus(const MessageBus&) = delete;
         const MessageBus& operator = (const MessageBus&) = delete;
 
-        void send( const Messages::Message &msg );
+        void send( const MsgBucket &msgBucket );
 
         void start();
         void stop();
@@ -54,7 +54,7 @@ namespace TraceServer
         void start();
         void stop();
 
-        void push( const Messages::Message& msg );
+        void push( Messages::Message *pMsg );
 
     protected:
 

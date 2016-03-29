@@ -15,8 +15,6 @@ namespace TraceServer
 
             int count() const { return connectionsCount_; }
 
-            virtual Message* cloneToPtr() const;
-
         protected:
 
             int     connectionsCount_;

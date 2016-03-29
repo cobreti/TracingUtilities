@@ -26,9 +26,7 @@ namespace TraceServer
 
         qDebug() << "ConnectionsMonitor -- connections count now : " << connectionsCount_;
 
-        auto bucket = new MsgBucket<Messages::ConnectionsCountChanged>(connectionsCount_);
-
-        msgBus_.send( Messages::ConnectionsCountChanged(connectionsCount_) );
+        msgBus_.send( TMsgBucket<Messages::ConnectionsCountChanged>(connectionsCount_) );
     }
 
 
@@ -39,7 +37,7 @@ namespace TraceServer
 
         -- connectionsCount_;
 
-        msgBus_.send( Messages::ConnectionsCountChanged(connectionsCount_) );
+        msgBus_.send( TMsgBucket<Messages::ConnectionsCountChanged>(connectionsCount_) );
 
         qDebug() << "ConnectionsMonitor -- connections count now : " << connectionsCount_;
     }

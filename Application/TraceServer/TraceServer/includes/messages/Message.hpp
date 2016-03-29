@@ -2,7 +2,6 @@
 #define MESSAGE_HPP
 
 #include "messages/MessageIDs.hpp"
-#include "MsgBucket.hpp"
 
 namespace TraceServer
 {
@@ -18,8 +17,6 @@ namespace TraceServer
             const Message& operator = (const Message&) = delete;
 
             MessageID id() const noexcept { return id_; }
-
-            virtual Message* cloneToPtr() const = 0;
 
         private:
 

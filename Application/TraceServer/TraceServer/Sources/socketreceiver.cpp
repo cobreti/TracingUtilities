@@ -54,7 +54,7 @@ namespace TraceServer
     {
         qDebug() << "SocketReceiver : socket disconnected";
 
-//        emit connectionTerminated(this);
+        emit connectionTerminated(this);
 
         monitorTimer_.stop();
         pEventLoop_->exit();

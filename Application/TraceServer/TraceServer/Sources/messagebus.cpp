@@ -11,11 +11,11 @@ namespace TraceServer
     {
     }
 
-    void MessageBus::send(const Messages::Message &msg)
+    void MessageBus::send(const MsgBucket &msgBucket)
     {
         qDebug() << "adding message";
 
-        pCore_->push(msg);
+        pCore_->push( msgBucket.detach() );
 
         qDebug() << "new message added";
     }
@@ -66,9 +66,9 @@ namespace TraceServer
         }
     }
 
-    void MBCore::push( const Messages::Message &msg)
+    void MBCore::push(Messages::Message *pMsg)
     {
-        msgQueue_.add(msg);
+        msgQueue_.add(pMsg);
     }
 
     void MBCore::run()

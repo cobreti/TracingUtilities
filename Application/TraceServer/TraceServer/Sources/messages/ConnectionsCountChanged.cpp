@@ -17,10 +17,5 @@ namespace TraceServer
         {
 
         }
-
-        Message* ConnectionsCountChanged::cloneToPtr() const
-        {
-            return new ConnectionsCountChanged(*this);
-        }
     }
 }

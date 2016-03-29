@@ -4,8 +4,7 @@
 #include <QtCore>
 
 #include <list>
-#include "messages/Message.hpp"
-
+#include "MsgBucket.hpp"
 
 namespace TraceServer
 {
@@ -21,7 +20,7 @@ namespace TraceServer
         MessageQueue(const MessageQueue&) = delete;
         const MessageQueue& operator = (const MessageQueue&) = delete;
 
-        void add(const Messages::Message &msg);
+        void add(Messages::Message *pMsg);
         MessagePtr pop();
         bool empty() const;
 

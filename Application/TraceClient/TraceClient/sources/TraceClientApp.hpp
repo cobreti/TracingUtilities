@@ -5,6 +5,7 @@
 #include <QApplication>
 
 class MainWindow;
+class MonitorPanel;
 
 namespace TraceServer
 {
@@ -12,15 +13,25 @@ namespace TraceServer
 }
 
 
-class Application : public QObject
+class TraceClientApp : public QObject
 {
     Q_OBJECT
 
 public:
-    Application(int argc, char *argv[]);
-    virtual ~Application();
+
+    static TraceClientApp& instance();
+
+public:
+    TraceClientApp(int argc, char *argv[]);
+    virtual ~TraceClientApp();
 
     void run();
+
+    constexpr int tcpPort() const noexcept { return 5000; }
+
+    TraceServer::Server& server() const { return *pServer_; }
+
+    MonitorPanel& monitorPanel();
 
 protected slots:
 
@@ -33,6 +44,11 @@ protected:
     TraceServer::Server*    pServer_;
 
     MainWindow              *pMainWindow_;
+    MonitorPanel            *pMonitorPanel_;
+
+private:
+
+    static TraceClientApp*     s_pInstance;
 };
 
 #endif // TRACECLIENTAPP_HPP

@@ -1,7 +1,8 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "networkUtility.hpp"
-//#include "sources/Application.hpp"
+#include "sources/TraceClientApp.hpp"
+#include "sources/MonitorPanel.hpp"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,8 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-//    ui->hostAddressField_->setText( NetworkUtility().getHostAddress().toString() );
-//    ui->portField_->setText( QString().setNum(kDefaultPort) );
+    ui->hostAddressField_->setText( NetworkUtility().getHostAddress().toString() );
+    ui->portField_->setText( QString().setNum( TraceClientApp::instance().tcpPort() ) );
+
+    connect(    ui->showMonitorPanelBtn, SIGNAL(clicked(bool)),
+                this, SLOT(onShowMonitorPanel(bool)) );
 }
 
 MainWindow::~MainWindow()
@@ -26,6 +30,5 @@ void MainWindow::onShowMonitorPanel(bool)
     pos.rx() += 50;
     pos.ry() += 50;
 
-//    Application::instance().monitorPanel().show(pos);
-//    Application::instance().showMonitorPanel(pos);
+    TraceClientApp::instance().monitorPanel().show(pos);
 }

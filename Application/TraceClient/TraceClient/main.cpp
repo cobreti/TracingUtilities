@@ -4,7 +4,7 @@
 int main(int argc, char *argv[])
 {
     int     ret{0};
-    Application      *pApp = new Application(argc, argv);
+    TraceClientApp      *pApp = new TraceClientApp(argc, argv);
 
     pApp->run();
 

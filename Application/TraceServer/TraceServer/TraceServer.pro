@@ -28,7 +28,8 @@ SOURCES += \
     Sources/monitors/connectionsmonitor.cpp \
     Sources/messages/Message.cpp \
     Sources/messages/ConnectionsCountChanged.cpp \
-    Sources/MessageQueue.cpp
+    Sources/MessageQueue.cpp \
+    Sources/MessageHandlers.cpp
 
 HEADERS += \
     includes/server.hpp \
@@ -51,7 +52,8 @@ HEADERS += \
     includes/messages/IMessageHandler.hpp \
     includes/MessageQueue.hpp \
     includes/messages/MessageIDs.hpp \
-    includes/MsgBucket.hpp
+    includes/MsgBucket.hpp \
+    includes/MessageHandlers.hpp
 unix {
     target.path = /usr/lib
     INSTALLS += target

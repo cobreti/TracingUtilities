@@ -35,6 +35,18 @@ namespace TraceServer
        }
     }
 
+    void MessageBus::addHandler(IMessageHandler *pHandler)
+    {
+        if ( pCore_ )
+            pCore_->handlers().add(pHandler);
+    }
+
+    void MessageBus::removeHandler(IMessageHandler *pHandler)
+    {
+        if ( pCore_ )
+            pCore_->handlers().remove(pHandler);
+    }
+
     void MessageBus::onMBCoreStarted()
     {
         qDebug() << "MBCore started";
@@ -85,8 +97,7 @@ namespace TraceServer
 
         while (auto pMsg = msgQueue_.pop())
         {
-            qDebug() << "processing message";
-            QThread::msleep(500);
+            msgHandlers_.handleMessage(*pMsg);
         }
 
         checkMsgTimer_.start();

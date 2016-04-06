@@ -3,6 +3,8 @@
 
 #include <QtCore>
 #include "MonitorPanelWidget.hpp"
+#include "MonitorPanelMsgHandler.hpp"
+
 
 class MonitorPanel : public QObject
 {
@@ -16,10 +18,12 @@ public:
 protected slots:
 
     void onPanelClosed();
+    void onConnectionsCountChanged(int count);
 
 protected:
 
     MonitorPanelWidget      *pWidget_;
+    MonitorPanelMsgHandler  *pMsgHandlers_;
 };
 
 #endif // MONITORPANEL_HPP

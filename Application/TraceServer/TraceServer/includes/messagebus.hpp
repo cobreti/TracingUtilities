@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include "MessageQueue.hpp"
+#include "MessageHandlers.hpp"
 
 namespace TraceServer
 {
@@ -31,6 +32,9 @@ namespace TraceServer
         void start();
         void stop();
 
+        void addHandler( IMessageHandler* pHandler );
+        void removeHandler( IMessageHandler* pHandler );
+
     protected slots:
 
         void onMBCoreStarted();
@@ -56,6 +60,8 @@ namespace TraceServer
 
         void push( Messages::Message *pMsg );
 
+        MessageHandlers& handlers() { return msgHandlers_; }
+
     protected:
 
         virtual void run() override;
@@ -67,10 +73,11 @@ namespace TraceServer
         void processMessages();
 
     private:
-        MessageBus      &owner_;
-        MessageQueue    msgQueue_;
-        QEventLoop      *pEventLoop_;
-        QTimer          checkMsgTimer_;
+        MessageBus          &owner_;
+        MessageQueue        msgQueue_;
+        QEventLoop          *pEventLoop_;
+        QTimer              checkMsgTimer_;
+        MessageHandlers     msgHandlers_;
     };
 }
 

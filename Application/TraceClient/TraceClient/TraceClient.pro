@@ -18,13 +18,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     MonitorPanelWidget.cpp \
     sources/MonitorPanel.cpp \
-    sources/TraceClientApp.cpp
+    sources/TraceClientApp.cpp \
+    sources/MonitorPanelMsgHandler.cpp
 
 HEADERS  += mainwindow.hpp \
     MainWindow.h \
     MonitorPanelWidget.hpp \
     sources/MonitorPanel.hpp \
-    sources/TraceClientApp.hpp
+    sources/TraceClientApp.hpp \
+    sources/MonitorPanelMsgHandler.hpp
 
 FORMS    += mainwindow.ui \
     MonitorPanelWidget.ui

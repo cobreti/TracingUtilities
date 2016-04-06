@@ -1,9 +1,17 @@
 #include "MonitorPanel.hpp"
+#include "TraceClientApp.hpp"
 
 MonitorPanel::MonitorPanel() : QObject(),
-    pWidget_{nullptr}
+    pWidget_{nullptr},
+    pMsgHandlers_{nullptr}
 {
 
+    auto &server = TraceClientApp::instance().server();
+
+    pMsgHandlers_ = new MonitorPanelMsgHandler(*this, server.messageBus());
+
+    connect(    pMsgHandlers_,  SIGNAL(connectionsCountChanged(int)),
+                this,           SLOT(onConnectionsCountChanged(int)) );
 }
 
 
@@ -30,4 +38,11 @@ void MonitorPanel::onPanelClosed()
 {
     delete pWidget_;
     pWidget_ = nullptr;
+}
+
+
+void MonitorPanel::onConnectionsCountChanged(int count)
+{
+    if ( pWidget_ )
+        pWidget_->setConnectionsCount(count);
 }

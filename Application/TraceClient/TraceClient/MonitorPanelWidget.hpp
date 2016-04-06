@@ -17,6 +17,8 @@ public:
     explicit MonitorPanelWidget(QWidget *parent = 0);
     ~MonitorPanelWidget();
 
+    void setConnectionsCount(int count);
+
 signals:
 
     void closing();

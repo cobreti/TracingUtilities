@@ -2,24 +2,35 @@
 #include "tcpinputblock.hpp"
 #include "MainWindow.hpp"
 #include "server.hpp"
+#include "MonitorPanel.hpp"
 
 
-Application::Application(int argc, char *argv[]) : QObject(),
+TraceClientApp* TraceClientApp::s_pInstance = nullptr;
+
+
+TraceClientApp& TraceClientApp::instance()
+{
+    return *s_pInstance;
+}
+
+TraceClientApp::TraceClientApp(int argc, char *argv[]) : QObject(),
     qApp_{argc, argv},
     pServer_{nullptr},
-    pMainWindow_{nullptr}
+    pMainWindow_{nullptr},
+    pMonitorPanel_{nullptr}
 {
+    s_pInstance = this;
 }
 
 
-Application::~Application()
+TraceClientApp::~TraceClientApp()
 {
 //    delete pMainWindow_;
     delete pServer_;
 }
 
 
-void Application::run()
+void TraceClientApp::run()
 {
     startTimer_.setSingleShot(true);
     startTimer_.start(200);
@@ -40,7 +51,18 @@ void Application::run()
 }
 
 
-void Application::onStart()
+MonitorPanel& TraceClientApp::monitorPanel()
+{
+    if ( pMonitorPanel_ == nullptr )
+    {
+        pMonitorPanel_ = new MonitorPanel();
+    }
+
+    return *pMonitorPanel_;
+}
+
+
+void TraceClientApp::onStart()
 {
     TraceServer::InputBlock *pBlock = nullptr;
 
@@ -49,7 +71,7 @@ void Application::onStart()
         pServer_ = new TraceServer::Server();
         pServer_->start();
 
-        pBlock = new TraceServer::TcpInputBlock("default", 5000);
+        pBlock = new TraceServer::TcpInputBlock("default", tcpPort());
 
         pServer_->inputBlocks().add(pBlock);
 
